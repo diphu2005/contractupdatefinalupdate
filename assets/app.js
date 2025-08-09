@@ -1,4 +1,59 @@
-// SPA with Firebase Auth + Firestore + Admin Panel
+// Show who is logged in + toggle buttons
+function paintAuthUI() {
+  const userBox  = document.getElementById('userBox');
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn= document.getElementById('logoutBtn');
+
+  if (auth.currentUser) {
+    userBox.textContent = `Hello, ${auth.currentUser.displayName || auth.currentUser.email}`;
+    if (loginBtn)  loginBtn.style.display  = 'none';
+    if (logoutBtn) logoutBtn.style.display = 'inline-block';
+  } else {
+    userBox.textContent = '';
+    if (loginBtn)  loginBtn.style.display  = 'inline-block';
+    if (logoutBtn) logoutBtn.style.display = 'none';
+  }
+}
+
+// React to login/logout changes
+auth.onAuthStateChanged(() => {
+  paintAuthUI();
+  // re-render your current page if your app uses routing, e.g. router();
+});
+
+// Attach click handlers once the page is ready
+window.addEventListener('DOMContentLoaded', () => {
+  const loginBtn  = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  // Keep the user signed in across refreshes/tabs
+  auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(()=>{});
+
+  // If we came back from a redirect sign-in, finish it silently
+  auth.getRedirectResult().catch(err => console.warn('Redirect result:', err?.message));
+
+  if (loginBtn) loginBtn.onclick = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      // Try popup first
+      await auth.signInWithPopup(provider);
+    } catch (e) {
+      // If popup is blocked, fall back to redirect (always works on GitHub Pages)
+      if (e.code === 'auth/popup-blocked' || e.code === 'auth/popup-closed-by-user' || e.code === 'auth/cancelled-popup-request') {
+        try { await auth.signInWithRedirect(provider); }
+        catch (e2) { alert('Login failed: ' + e2.message); }
+      } else {
+        alert('Login failed: ' + e.message);
+      }
+    }
+  };
+
+  if (logoutBtn) logoutBtn.onclick = async () => {
+    await auth.signOut();
+    // optional: take user to Home
+    location.hash = '#/';
+  };
+});// SPA with Firebase Auth + Firestore + Admin Panel
 const app = document.getElementById('app');
 
 let CURRENT_USER = null;
