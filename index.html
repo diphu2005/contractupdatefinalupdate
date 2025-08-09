@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <span id="userBox"></span>
+<button id="loginBtn">Login</button>
+<button id="logoutBtn" style="display:none;">Logout</button>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contract & Procurement Discussion Forum</title>
@@ -57,6 +60,29 @@
     const auth = firebase.auth();
     const db = firebase.firestore();
   </script>
+<!-- Firebase SDKs (Compat builds for simple HTML sites) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<!-- Your Firebase project config -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBYlx3WJgLr9O4S3_EWfa04StHqRzAWIx8",
+    authDomain: "candp-327c9.firebaseapp.com",
+    projectId: "candp-327c9",
+    storageBucket: "candp-327c9.firebasestorage.app",
+    messagingSenderId: "597664917927",
+    appId: "1:597664917927:web:1238725dacab7926e9ee82",
+    measurementId: "G-H8RFJ769XT"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+
+<!-- Your app code (must come AFTER the Firebase stuff) -->
+<script src="assets/app.js"></script>
 
   <script src="assets/app.js"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
