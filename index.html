@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contract & Procurement Discussion Forum</title>
+  <meta name="description" content="Discussion on Contract Management issues: Pre‑Tender, During Tender, Post‑Tender."/>
+  <link rel="stylesheet" href="assets/styles.css"/>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">Contract & Procurement Discussion Forum</div>
+      <nav class="nav">
+        <a href="#/">Home</a>
+        <a href="#/all">All Cases</a>
+        <a href="#/category/pretender">Pre‑Tender</a>
+        <a href="#/category/during">During Tender</a>
+        <a href="#/category/post">Post‑Tender</a>
+        <a href="#/library">Case Library</a>
+        <a href="#/new" id="submitLink">Submit Case</a>
+        <a href="#/admin" id="adminLink" style="display:none;">Admin</a>
+      </nav>
+      <div class="auth">
+        <span id="userBox" class="userBox"></span>
+        <button id="loginBtn" type="button" class="btn small">Login</button>
+        <button id="logoutBtn" type="button" class="btn small danger" style="display:none;">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="app" class="wrap app-wrap"></main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <small>© <span id="year"></span> Contract & Procurement Discussions</small>
+    </div>
+  </footer>
+
+  <!-- Firebase SDKs (Compat builds) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <!-- Firebase Config -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBYlx3WJgLr9O4S3_EWfa04StHqRzAWIx8",
+      authDomain: "candp-327c9.firebaseapp.com",
+      projectId: "candp-327c9",
+      storageBucket: "candp-327c9.firebasestorage.app",
+      messagingSenderId: "597664917927",
+      appId: "1:597664917927:web:1238725dacab7926e9ee82",
+      measurementId: "G-H8RFJ769XT"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
+
+  <script src="assets/app.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
